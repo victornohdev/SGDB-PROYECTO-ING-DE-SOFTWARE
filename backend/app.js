@@ -7,6 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 const authRoutes = require('./routes/auth.routes');
+const dashboardRoutes   = require('./routes/dashboard.routes');
+const asistenciasRoutes = require('./routes/asistencias.routes');
+
+app.use('/api/dashboard',   dashboardRoutes);
+app.use('/api/asistencias', asistenciasRoutes);
 
 app.use('/api/auth', authRoutes);
 

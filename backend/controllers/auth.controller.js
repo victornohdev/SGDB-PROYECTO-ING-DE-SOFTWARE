@@ -4,18 +4,44 @@ const login = async (req, res) => {
 
     try {
 
-        // Datos enviados desde frontend
         const { usuario, contrasena, rol } = req.body;
 
-        console.log(req.body);
+        let tabla = '';
 
-        // Buscar usuario en la base de datos
+        // Elegir tabla según el rol
+        switch (rol) {
+
+            case 'admin':
+                tabla = 'Administradores';
+                break;
+
+            case 'maestro':
+                tabla = 'Maestro';
+                break;
+
+            case 'alumno':
+                tabla = 'Alumnos';
+                break;
+
+            default:
+                return res.status(400).json({
+                    mensaje: 'Rol inválido'
+                });
+        }
+
+        console.log('TABLA:', tabla);
+        console.log('USUARIO:', usuario);
+
+
+        // Buscar usuario
         const [rows] = await db.query(
-            'SELECT * FROM usuarios WHERE usuario = ? AND rol = ?',
-            [usuario, rol]
+            `SELECT * FROM ${tabla} WHERE nombre = ?`,
+            [usuario]
         );
 
-        // Verificar si el usuario existe
+        console.log(rows);
+
+        // Verificar existencia
         if (rows.length === 0) {
             return res.status(401).json({
                 mensaje: 'Usuario no encontrado'
@@ -35,9 +61,8 @@ const login = async (req, res) => {
         return res.json({
             mensaje: 'Login exitoso',
             usuario: {
-                id: user.id,
-                nombre: user.usuario,
-                rol: user.rol
+                nombre: user.nombre,
+                rol: rol
             }
         });
 
