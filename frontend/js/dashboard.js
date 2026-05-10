@@ -87,7 +87,7 @@ async function cargarAsistenciasRecientes() {
       <tr>
         <td colspan="4">
           <div class="vacio">
-            <div class="vacio-icono">⚠️</div>
+            <div class="vacio-icono"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="vacio-texto">Error al cargar asistencias</div>
           </div>
         </td>
