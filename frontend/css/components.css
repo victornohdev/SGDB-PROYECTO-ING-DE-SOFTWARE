@@ -1,0 +1,377 @@
+/* =============================================
+   COMPONENTS.CSS — Elementos reutilizables
+   SGAE - Sistema de Gestión de Asistencias
+   ============================================= */
+
+/* --- BOTONES --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radio-sm);
+  font-family: var(--fuente-principal);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primario {
+  background: var(--color-primario);
+  color: white;
+}
+
+.btn-primario:hover {
+  background: var(--color-primario-dark);
+}
+
+.btn-success {
+  background: var(--color-verde);
+  color: white;
+}
+
+.btn-success:hover {
+  background: #15803d;
+}
+
+.btn-danger {
+  background: var(--color-rojo);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-primario);
+  border: 1.5px solid var(--color-primario);
+}
+
+.btn-outline:hover {
+  background: var(--color-primario-light);
+  transform: none;
+}
+
+.btn-sm {
+  padding: 7px 14px;
+  font-size: 12px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* --- CARDS --- */
+.card {
+  background: var(--color-superficie);
+  border-radius: var(--radio);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra);
+}
+
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-borde);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-titulo {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* --- STAT CARD --- */
+.stat-card {
+  background: var(--color-superficie);
+  border-radius: var(--radio);
+  border: 1px solid var(--color-borde);
+  padding: 20px;
+  box-shadow: var(--sombra);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--color-texto2);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.stat-valor {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-valor.azul    { color: var(--color-primario); }
+.stat-valor.verde   { color: var(--color-verde); }
+.stat-valor.rojo    { color: var(--color-rojo); }
+.stat-valor.amarillo{ color: var(--color-amarillo); }
+
+/* --- BARRA DE PROGRESO --- */
+.progress-bar {
+  height: 6px;
+  background: var(--color-superficie2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* --- TABLA --- */
+.tabla-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead tr {
+  border-bottom: 2px solid var(--color-borde);
+}
+
+thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-texto2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--color-borde);
+  transition: background 0.15s;
+}
+
+tbody tr:hover {
+  background: var(--color-superficie2);
+}
+
+tbody td {
+  padding: 12px 14px;
+}
+
+/* --- BADGES --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge-verde    { background: var(--color-verde-light);   color: var(--color-verde); }
+.badge-rojo     { background: var(--color-rojo-light);    color: var(--color-rojo); }
+.badge-amarillo { background: var(--color-amarillo-light);color: var(--color-amarillo); }
+.badge-azul     { background: var(--color-primario-light);color: var(--color-primario); }
+.badge-gris     { background: var(--color-superficie2);   color: var(--color-texto2); }
+
+/* --- FORMULARIOS --- */
+.form-grupo {
+  margin-bottom: 16px;
+}
+
+.form-grupo label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-texto2);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-grupo input,
+.form-grupo select,
+.form-grupo textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  font-family: var(--fuente-principal);
+  font-size: 14px;
+  color: var(--color-texto);
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-grupo input:focus,
+.form-grupo select:focus,
+.form-grupo textarea:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-grupo input::placeholder {
+  color: var(--color-texto2);
+  opacity: 0.7;
+}
+
+.form-grupo select[multiple] {
+  height: 100px;
+}
+
+.form-nota {
+  font-size: 11px;
+  color: var(--color-texto2);
+  margin-top: 4px;
+  display: block;
+}
+
+/* --- AVATAR --- */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  background: var(--color-primario);
+  flex-shrink: 0;
+}
+
+.avatar-morado { background: #7c3aed; }
+
+/* --- FILA DE ASISTENCIA --- */
+.asist-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.asist-fila:last-child {
+  border: none;
+}
+
+.asist-nombre {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.asist-control {
+  font-size: 12px;
+  color: var(--color-texto2);
+  font-family: var(--fuente-mono);
+}
+
+.asist-botones {
+  display: flex;
+  gap: 6px;
+}
+
+.asist-btn {
+  padding: 6px 14px;
+  border-radius: var(--radio-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: opacity 0.15s;
+  font-family: var(--fuente-principal);
+}
+
+.asist-btn:hover {
+  opacity: 0.8;
+}
+
+.asist-btn.asistio {
+  background: var(--color-verde-light);
+  color: var(--color-verde);
+  border-color: var(--color-verde);
+}
+
+.asist-btn.falto {
+  background: var(--color-rojo-light);
+  color: var(--color-rojo);
+  border-color: var(--color-rojo);
+}
+
+.asist-btn.retardo {
+  background: var(--color-amarillo-light);
+  color: var(--color-amarillo);
+  border-color: var(--color-amarillo);
+}
+
+.asist-btn.inactivo {
+  background: white;
+  color: var(--color-texto2);
+  border-color: var(--color-borde);
+}
+
+/* --- ACCIONES EN TABLA --- */
+.acciones {
+  display: flex;
+  gap: 6px;
+}
+
+/* --- ALERTA / NOTIFICACIÓN --- */
+.alerta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: var(--radio);
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.alerta-verde {
+  background: var(--color-verde-light);
+  color: var(--color-verde);
+  border-left: 4px solid var(--color-verde);
+}
+
+.alerta-amarillo {
+  background: var(--color-amarillo-light);
+  color: var(--color-amarillo);
+  border-left: 4px solid var(--color-amarillo);
+}
+
+.alerta-rojo {
+  background: var(--color-rojo-light);
+  color: var(--color-rojo);
+  border-left: 4px solid var(--color-rojo);
+}
+
+/* --- SEPARADOR --- */
+.separador {
+  height: 1px;
+  background: var(--color-borde);
+  margin: 20px 0;
+}
