@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdúTrack — Dashboard Admin</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main">
+
+    <!-- Encabezado -->
+    <div class="page-header">
+      <div>
+        <div class="page-titulo">Dashboard</div>
+        <div class="page-subtitulo" id="saludo">Bienvenido</div>
+      </div>
+    </div>
+
+    <!-- Tarjetas de estadísticas -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Alumnos</div>
+        <div class="stat-valor azul" id="total-alumnos">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Maestros</div>
+        <div class="stat-valor" id="total-maestros">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Grupos</div>
+        <div class="stat-valor" id="total-grupos">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Asistencia Hoy</div>
+        <div class="stat-valor verde" id="asistencia-hoy">—</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-hoy" style="width:0%;background:var(--color-verde)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerta cumpleaños -->
+    <div id="cumple-alerta" style="display:none" class="alerta alerta-amarillo" style="margin-bottom:20px">
+      🎂 <span id="cumple-texto"></span>
+    </div>
+
+    <!-- Asistencias recientes -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-titulo">Asistencias Recientes</div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <div class="tabla-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Alumno</th>
+                <th>Fecha</th>
+                <th>Grupo</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-asistencias">
+              <tr>
+                <td colspan="4">
+                  <div class="vacio">
+                    <div class="vacio-icono">📋</div>
+                    <div class="vacio-texto">Cargando asistencias...</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/dashboard.js"></script>
+
+</body>
+</html>
