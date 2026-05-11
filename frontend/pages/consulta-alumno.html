@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EdúTrack — Consulta General</title>
+  <title>EdúTrack — Consulta por Alumno</title>
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/components.css">
@@ -20,45 +20,39 @@
     <!-- Encabezado -->
     <div class="page-header">
       <div>
-        <div class="page-titulo">Consulta General</div>
-        <div class="page-subtitulo">Asistencia de todos los grupos</div>
+        <div class="page-titulo">Asistencia por Alumno</div>
+        <div class="page-subtitulo">Historial completo de un alumno</div>
       </div>
     </div>
 
-    <!-- Filtros -->
+    <!-- Selector -->
     <div class="card" style="margin-bottom:20px">
       <div class="card-body">
         <div class="form-grid">
+          <div class="form-grupo full" style="margin:0">
+            <label>Buscar alumno</label>
+            <select id="sel-alumno">
+              <option value="">-- Elige un alumno --</option>
+            </select>
+          </div>
           <div class="form-grupo" style="margin:0">
             <label>Fecha inicio</label>
             <input type="date" id="fecha-inicio">
           </div>
-          <div class="form-grupo" style="margin:0">
-            <label>Fecha fin</label>
-            <input type="date" id="fecha-fin">
-          </div>
-          <div class="form-grupo" style="margin:0">
-            <label>Turno</label>
-            <select id="filtro-turno">
-              <option value="">Todos</option>
-              <option value="Matutino">Matutino</option>
-              <option value="Vespertino">Vespertino</option>
-            </select>
-          </div>
           <div class="form-grupo" style="margin:0;display:flex;align-items:flex-end">
-            <button class="btn btn-primario btn-sm btn-full" onclick="cargarConsulta()">
-              <i class="fa-solid fa-filter"></i>Filtrar
+            <button class="btn btn-primario btn-sm btn-full" onclick="cargarConsultaAlumno()">
+              <i class="fa-solid fa-magnifying-glass"></i>Consultar
             </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Resumen de grupos -->
-    <div id="contenido-general">
+    <!-- Resultados -->
+    <div id="contenido-alumno">
       <div class="vacio">
         <div class="vacio-icono"><i class="fa-solid fa-chart-line"></i></div>
-        <div class="vacio-texto">Selecciona un rango de fechas y presiona Filtrar</div>
+        <div class="vacio-texto">Selecciona un alumno y presiona Consultar</div>
       </div>
     </div>
 

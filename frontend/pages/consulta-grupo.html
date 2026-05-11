@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EdúTrack — Consulta General</title>
+  <title>EdúTrack — Consulta por Grupo</title>
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/components.css">
@@ -20,15 +20,21 @@
     <!-- Encabezado -->
     <div class="page-header">
       <div>
-        <div class="page-titulo">Consulta General</div>
-        <div class="page-subtitulo">Asistencia de todos los grupos</div>
+        <div class="page-titulo">Asistencia por Grupo</div>
+        <div class="page-subtitulo">Historial de asistencia de un grupo</div>
       </div>
     </div>
 
-    <!-- Filtros -->
+    <!-- Selector -->
     <div class="card" style="margin-bottom:20px">
       <div class="card-body">
         <div class="form-grid">
+          <div class="form-grupo" style="margin:0">
+            <label>Grupo</label>
+            <select id="sel-grupo">
+              <option value="">-- Elige un grupo --</option>
+            </select>
+          </div>
           <div class="form-grupo" style="margin:0">
             <label>Fecha inicio</label>
             <input type="date" id="fecha-inicio">
@@ -37,28 +43,20 @@
             <label>Fecha fin</label>
             <input type="date" id="fecha-fin">
           </div>
-          <div class="form-grupo" style="margin:0">
-            <label>Turno</label>
-            <select id="filtro-turno">
-              <option value="">Todos</option>
-              <option value="Matutino">Matutino</option>
-              <option value="Vespertino">Vespertino</option>
-            </select>
-          </div>
           <div class="form-grupo" style="margin:0;display:flex;align-items:flex-end">
-            <button class="btn btn-primario btn-sm btn-full" onclick="cargarConsulta()">
-              <i class="fa-solid fa-filter"></i>Filtrar
+            <button class="btn btn-primario btn-sm btn-full" onclick="cargarConsultaGrupo()">
+              <i class="fa-solid fa-magnifying-glass"></i> Consultar
             </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Resumen de grupos -->
-    <div id="contenido-general">
+    <!-- Resultados -->
+    <div id="contenido-grupo">
       <div class="vacio">
         <div class="vacio-icono"><i class="fa-solid fa-chart-line"></i></div>
-        <div class="vacio-texto">Selecciona un rango de fechas y presiona Filtrar</div>
+        <div class="vacio-texto">Selecciona un grupo y presiona Consultar</div>
       </div>
     </div>
 
