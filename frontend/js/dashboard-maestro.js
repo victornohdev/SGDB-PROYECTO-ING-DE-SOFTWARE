@@ -45,7 +45,7 @@ async function cargarGrupos() {
 
     tbody.innerHTML = data.map(g => `
       <tr>
-        <td><b>${g.grado} ${g.nombre}</b></td>
+        <td><b>${g.nombre}</b></td>
         <td>${g.totalAlumnos} alumnos</td>
         <td>
           ${g.listaPasada

@@ -37,6 +37,19 @@ async function cargarAlumnos() {
   }
 }
 
+//filtrar grado y grupo
+let todosLosGrupos = [];
+
+async function cargarGruposSelect() {
+  try {
+    const res        = await fetch(`${API}/grupos`);
+    todosLosGrupos   = await res.json();
+  } catch (err) {
+    console.error('Error al cargar grupos:', err);
+  }
+}
+
+
 // --- Renderizar tabla ---
 function renderTabla(lista) {
   const tbody = document.getElementById('tabla-alumnos');
@@ -84,20 +97,35 @@ function filtrarTabla(input) {
   renderTabla(filtro);
 }
 
+function filtrarGruposPorGrado(grado) {
+  const sel = document.getElementById('al-grupo');
+
+  if (!grado) {
+    sel.innerHTML = '<option value="">Selecciona grado primero</option>';
+    return;
+  }
+
+  const filtrados = todosLosGrupos.filter(g => String(g.grado).trim() === String(grado).trim());
+
+  sel.innerHTML = '<option value="">Selecciona</option>' +
+    filtrados.map(g => `<option value="${g.id}">${g.nombre}</option>`).join('');  // ← g.id no g.id_grupo
+}
+
+
 // --- Cargar grupos en el select del modal ---
 async function cargarGruposSelect() {
-  try {
-    const res    = await fetch(`${API}/grupos`);
-    const grupos = await res.json();
-    const sel    = document.getElementById('al-grupo');
-
-    sel.innerHTML = '<option value="">Selecciona</option>' +
-      grupos.map(g => `<option value="${g.nombre}">${g.grado} ${g.nombre}</option>`).join('');
-
+  
+try {
+    const res      = await fetch(`${API}/grupos`);
+    todosLosGrupos = await res.json();
+    console.log('Grupos cargados:', todosLosGrupos);
   } catch (err) {
     console.error('Error al cargar grupos:', err);
   }
 }
+
+    
+
 
 // --- Abrir modal para nuevo alumno ---
 function abrirModal() {
@@ -113,12 +141,16 @@ function editarAlumno(id) {
   if (!alumno) return;
 
   editandoId = id;
-  document.getElementById('modal-titulo').textContent  = 'Editar Alumno';
-  document.getElementById('al-nombre').value           = alumno.nombre;
-  document.getElementById('al-control').value          = alumno.control;
-  document.getElementById('al-cumple').value           = alumno.cumpleanos;
-  document.getElementById('al-grado').value            = alumno.grado;
-  document.getElementById('al-grupo').value            = alumno.grupo;
+  document.getElementById('modal-titulo').textContent = 'Editar Alumno';
+  document.getElementById('al-nombre').value          = alumno.nombre;
+  document.getElementById('al-control').value         = alumno.control;
+  document.getElementById('al-cumple').value          = alumno.cumpleanos ?? '';
+
+  // Seleccionar grado y filtrar grupos
+  document.getElementById('al-grado').value = alumno.grado;
+  filtrarGruposPorGrado(alumno.grado);
+  document.getElementById('al-grupo').value = alumno.grupo_id;
+
   ocultarErrorModal();
   document.getElementById('modal-alumno').classList.add('abierto');
 }
@@ -135,38 +167,36 @@ function limpiarModal() {
   document.getElementById('al-control').value = '';
   document.getElementById('al-cumple').value  = '';
   document.getElementById('al-grado').value   = '';
-  document.getElementById('al-grupo').value   = '';
+  document.getElementById('al-grupo').innerHTML = '<option value="">Selecciona grado primero</option>';
   ocultarErrorModal();
 }
 
 // --- Guardar alumno (crear o editar) ---
 async function guardarAlumno() {
+  
   const nombre     = document.getElementById('al-nombre').value.trim();
   const control    = document.getElementById('al-control').value.trim();
   const cumpleanos = document.getElementById('al-cumple').value;
   const grado      = document.getElementById('al-grado').value;
   const grupo      = document.getElementById('al-grupo').value;
-
-  // Validar campos
+console.log('grado:', grado, 'grupo:', grupo);
   if (!nombre || !control || !grado || !grupo) {
     mostrarErrorModal('Por favor completa todos los campos obligatorios.');
     return;
   }
 
-  const body = { nombre, control, cumpleanos, grado, grupo };
+  const body = { nombre, control, cumpleanos, grupo };
 
   try {
     let res;
 
     if (editandoId) {
-      // Editar
       res = await fetch(`${API}/alumnos/${editandoId}`, {
         method:  'PUT',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(body)
       });
     } else {
-      // Crear
       res = await fetch(`${API}/alumnos`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },

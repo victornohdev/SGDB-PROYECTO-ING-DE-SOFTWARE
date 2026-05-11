@@ -41,13 +41,22 @@ function setFechasDefault() {
 // --- Cargar grupos en select ---
 async function cargarGruposSelect() {
   try {
-    const res    = await fetch(`${API}/grupos`);
+    const usuario = obtenerUsuario();
+    const sel     = document.getElementById('sel-grupo');
+
+    let url = `${API}/grupos`;
+
+    // Si es maestro, solo cargar sus grupos
+    if (usuario.rol === 'maestro') {
+      url = `${API}/maestros/${usuario.id}/grupos`;
+    }
+
+    const res    = await fetch(url);
     const grupos = await res.json();
-    const sel    = document.getElementById('sel-grupo');
 
     sel.innerHTML = '<option value="">-- Elige un grupo --</option>' +
       grupos.map(g =>
-        `<option value="${g.id}">${g.grado} ${g.nombre}</option>`
+        `<option value="${g.id}">${g.grado}° ${g.nombre}</option>`
       ).join('');
 
   } catch (err) {
@@ -57,11 +66,21 @@ async function cargarGruposSelect() {
 
 // --- Cargar alumnos en select ---
 async function cargarAlumnosSelect() {
+
   try {
-    const res     = await fetch(`${API}/alumnos`);
-    const alumnos = await res.json();
+    const usuario = obtenerUsuario();
     const sel     = document.getElementById('sel-alumno');
 
+    let url = `${API}/alumnos`;
+
+    // Si es maestro, solo cargar alumnos de sus grupos
+    if (usuario.rol === 'maestro') {
+      url = `${API}/maestros/${usuario.id}/alumnos`;
+    }
+
+    const res     = await fetch(url);
+    const alumnos = await res.json();
+  console.log(usuario);
     sel.innerHTML = '<option value="">-- Elige un alumno --</option>' +
       alumnos.map(a =>
         `<option value="${a.id}">${a.nombre} (${a.control})</option>`

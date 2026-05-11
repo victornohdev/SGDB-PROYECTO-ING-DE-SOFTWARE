@@ -94,7 +94,7 @@ async function cargarGruposSelect() {
     const sel    = document.getElementById('mae-grupos');
 
     sel.innerHTML = grupos.map(g =>
-      `<option value="${g.id}">${g.grado} ${g.nombre}</option>`
+      `<option value="${g.id_grupo}">${g.grado}° ${g.nombre}</option>`
     ).join('');
 
   } catch (err) {
