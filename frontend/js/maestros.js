@@ -68,8 +68,8 @@ function renderTabla(lista) {
       </td>
       <td>
         <div class="acciones">
-          <button class="btn btn-outline btn-sm" onclick="editarMaestro(${m.id})">✏️</button>
-          <button class="btn btn-danger btn-sm"  onclick="eliminarMaestro(${m.id})">🗑️</button>
+          <button class="btn btn-outline btn-sm" onclick="editarMaestro(${m.id})"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn btn-danger btn-sm"  onclick="eliminarMaestro(${m.id})"><i class="fa-solid fa-trash"></i></button>
         </div>
       </td>
     </tr>

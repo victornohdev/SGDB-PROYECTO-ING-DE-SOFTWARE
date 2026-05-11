@@ -145,14 +145,3 @@ function verificarSesion() {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') iniciarSesion();
 });
-
-
-/*
-// TEMPORAL — quitar cuando el backend esté listo
-function obtenerUsuario() {
-  return { nombre: 'Juan Pérez', rol: 'alumno' };
-}
-
-function verificarSesion() {
-  return { nombre: 'Admin Prueba', rol: 'admin' };
-}
