@@ -150,7 +150,7 @@ document.addEventListener('keydown', (e) => {
 
 // TEMPORAL — quitar cuando el backend esté listo
 function obtenerUsuario() {
-  return { nombre: 'Juan Pérez', rol: 'admin' };
+  return { nombre: 'Juan Pérez', rol: 'maestro' };
 }
 
 function verificarSesion() {

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdúTrack — Grupos</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main">
+
+    <!-- Encabezado -->
+    <div class="page-header">
+      <div>
+        <div class="page-titulo">Grupos</div>
+        <div class="page-subtitulo" id="subtitulo">Cargando...</div>
+      </div>
+      <button class="btn btn-success btn-sm" onclick="abrirModal()">
+        <i class="fa-solid fa-plus"></i>Nuevo Grupo
+      </button>
+    </div>
+
+    <!-- Tabla de grupos -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-titulo">Lista de Grupos</div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <div class="tabla-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Grupo</th>
+                <th>Turno</th>
+                <th>Alumnos</th>
+                <th>Maestro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-grupos">
+              <tr>
+                <td colspan="5">
+                  <div class="vacio">
+                    <div class="vacio-icono"><i class="fa-solid fa-spinner"></i></div>
+                    <div class="vacio-texto">Cargando grupos...</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL REGISTRAR / EDITAR GRUPO -->
+  <div class="modal-backdrop" id="modal-grupo">
+    <div class="modal">
+
+      <div class="modal-header">
+        <div class="modal-titulo" id="modal-titulo">Nuevo Grupo</div>
+        <button class="modal-cerrar" onclick="cerrarModal()">✕</button>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-grupo">
+          <label>Grado</label>
+          <select id="gr-grado">
+            <option value="">Selecciona</option>
+            <option>1°</option>
+            <option>2°</option>
+            <option>3°</option>
+            <option>4°</option>
+            <option>5°</option>
+            <option>6°</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label>Grupo</label>
+          <input type="text" id="gr-nombre" placeholder="Ej: A" maxlength="2">
+        </div>
+
+        <div class="form-grupo full">
+          <label>Turno</label>
+          <select id="gr-turno">
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Error en modal -->
+      <div id="error-modal"
+        style="display:none;color:var(--color-rojo);font-size:13px;margin-top:8px">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn btn-success btn-sm" onclick="guardarGrupo()">Guardar</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/grupos.js"></script>
+
+</body>
+</html>

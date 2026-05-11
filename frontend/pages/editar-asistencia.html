@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdúTrack — Editar Asistencia</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main">
+
+    <!-- Encabezado -->
+    <div class="page-header">
+      <div>
+        <div class="page-titulo">Editar Asistencia</div>
+        <div class="page-subtitulo">Solo asistencias del día de hoy no confirmadas</div>
+      </div>
+    </div>
+
+    <!-- Selector de grupo -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-body">
+        <div class="form-grupo" style="margin:0">
+          <label>Selecciona un Grupo</label>
+          <select id="sel-grupo" onchange="cargarAsistencias()">
+            <option value="">-- Elige un grupo --</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de asistencias editables -->
+    <div id="contenido-edicion"></div>
+
+  </main>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/editar-asistencia.js"></script>
+
+</body>
+</html>
