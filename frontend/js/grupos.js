@@ -55,9 +55,9 @@ function renderTabla(lista) {
     <tr>
       <td><b>${g.grado} ${g.nombre}</b></td>
       <td>
-        <span class="badge ${g.turno === 'Matutino' ? 'badge-azul' : 'badge-amarillo'}">
-          ${g.turno}
-        </span>
+        <span class="badge ${g.turno === 'matutino' ? 'badge-azul' : 'badge-amarillo'}">
+    ${g.turno.charAt(0).toUpperCase() + g.turno.slice(1)}
+</span>
       </td>
       <td>${g.totalAlumnos ?? 0} alumnos</td>
       <td>${g.maestro ?? '<span class="text-muted">Sin asignar</span>'}</td>

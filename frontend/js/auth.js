@@ -156,4 +156,3 @@ function obtenerUsuario() {
 function verificarSesion() {
   return { nombre: 'Admin Prueba', rol: 'admin' };
 }
-*/

@@ -76,6 +76,7 @@ function cambiarTab(idx) {
 // --- Renderizar contenido de un grupo ---
 async function renderGrupo(idx) {
   const grupo     = grupos[idx];
+  console.log('Grupo:', grupo);
   const contenido = document.getElementById('contenido-grupos');
   const hoy       = today();
 
@@ -89,12 +90,13 @@ async function renderGrupo(idx) {
     // Verificar si ya se pasó lista hoy
     const resLista = await fetch(`${API}/asistencias/verificar?grupoId=${grupo.id}&fecha=${hoy}`);
     const dataLista = await resLista.json();
+    console.log('Lista verificada:', dataLista);
     const yaPaso   = dataLista.pasada;
 
     // Cargar alumnos del grupo
     const resAlumnos = await fetch(`${API}/grupos/${grupo.id}/alumnos`);
     const alumnos    = await resAlumnos.json();
-
+console.log('Alumnos:', alumnos);
     // Inicializar sesionTemp para este grupo si no existe
     if (!sesionTemp[grupo.id]) {
       sesionTemp[grupo.id] = {};

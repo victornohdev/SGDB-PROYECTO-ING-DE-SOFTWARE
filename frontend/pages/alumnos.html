@@ -97,25 +97,25 @@
           <input type="date" id="al-cumple">
         </div>
 
-        <div class="form-grupo">
-          <label>Grado</label>
-          <select id="al-grado">
-            <option value="">Selecciona</option>
-            <option>1°</option>
-            <option>2°</option>
-            <option>3°</option>
-            <option>4°</option>
-            <option>5°</option>
-            <option>6°</option>
-          </select>
-        </div>
+<div class="form-grupo">
+  <label>Grado</label>
+  <select id="al-grado" onchange="filtrarGruposPorGrado(this.value)">
+    <option value="">Selecciona</option>
+    <option value="1">1°</option>
+    <option value="2">2°</option>
+    <option value="3">3°</option>
+    <option value="4">4°</option>
+    <option value="5">5°</option>
+    <option value="6">6°</option>
+  </select>
+</div>
 
-        <div class="form-grupo">
-          <label>Grupo</label>
-          <select id="al-grupo">
-            <option value="">Selecciona</option>
-          </select>
-        </div>
+<div class="form-grupo">
+  <label>Grupo</label>
+  <select id="al-grupo">
+    <option value="">Selecciona grado primero</option>
+  </select>
+</div>
 
       </div>
 

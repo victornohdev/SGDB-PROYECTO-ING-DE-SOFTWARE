@@ -58,13 +58,14 @@ const login = async (req, res) => {
         }
 
         // Login exitoso
-        return res.json({
-            mensaje: 'Login exitoso',
-            usuario: {
-                nombre: user.nombre,
-                rol: rol
-            }
-        });
+  return res.json({
+    mensaje: 'Login exitoso',
+    usuario: {
+        id:     user.id_alumno ?? user.id_maestro ?? user.id_admin,
+        nombre: user.nombre,
+        rol:    rol
+    }
+});
 
     } catch (error) {
 
