@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdúTrack — Maestros</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main">
+
+    <!-- Encabezado -->
+    <div class="page-header">
+      <div>
+        <div class="page-titulo">Maestros</div>
+        <div class="page-subtitulo" id="subtitulo">Cargando...</div>
+      </div>
+      <button class="btn btn-success btn-sm" onclick="abrirModal()">
+        <i class="fa-solid fa-plus"></i>Nuevo Maestro
+      </button>
+    </div>
+
+    <!-- Tabla de maestros -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-titulo">Lista de Maestros</div>
+        <div class="search-bar">
+          <span class="search-icono"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input
+            type="text"
+            placeholder="Buscar maestro..."
+            oninput="filtrarTabla(this)"
+            style="width:220px"
+          >
+        </div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <div class="tabla-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Grupos Asignados</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-maestros">
+              <tr>
+                <td colspan="4">
+                  <div class="vacio">
+                    <div class="vacio-icono"><i class="fa-solid fa-spinner"></i></div>
+                    <div class="vacio-texto">Cargando maestros...</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL REGISTRAR / EDITAR MAESTRO -->
+  <div class="modal-backdrop" id="modal-maestro">
+    <div class="modal">
+
+      <div class="modal-header">
+        <div class="modal-titulo" id="modal-titulo">Registrar Maestro</div>
+        <button class="modal-cerrar" onclick="cerrarModal()">✕</button>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-grupo full">
+          <label>Nombre completo</label>
+          <input type="text" id="mae-nombre" placeholder="Ej: Dr. Carlos Ramírez">
+        </div>
+
+        <div class="form-grupo">
+          <label>Usuario</label>
+          <input type="text" id="mae-usuario" placeholder="Ej: cramirez">
+        </div>
+
+        <div class="form-grupo">
+          <label>Contraseña</label>
+          <input type="password" id="mae-contrasena" placeholder="••••••••">
+        </div>
+
+        <div class="form-grupo full">
+          <label>Grupos asignados</label>
+          <select id="mae-grupos" multiple>
+          </select>
+          <span class="form-nota">Ctrl + clic para seleccionar varios grupos</span>
+        </div>
+
+      </div>
+
+      <!-- Error en modal -->
+      <div id="error-modal"
+        style="display:none;color:var(--color-rojo);font-size:13px;margin-top:8px">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn btn-success btn-sm" onclick="guardarMaestro()">Guardar</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/maestros.js"></script>
+
+</body>
+</html>

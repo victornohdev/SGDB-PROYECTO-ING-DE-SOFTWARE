@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EdúTrack — Dashboard Admin</title>
+  <title>EdúTrack — Dashboard Maestro</title>
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/components.css">
@@ -23,40 +23,60 @@
         <div class="page-titulo">Dashboard</div>
         <div class="page-subtitulo" id="saludo">Bienvenido</div>
       </div>
+      <a href="pase-lista.html" class="btn btn-primario btn-sm"><i class="fa-solid fa-check"></i> Pasar Lista</a>
     </div>
 
     <!-- Tarjetas de estadísticas -->
-    <div class="stats-grid">
+    <div class="stats-grid-3">
       <div class="stat-card">
-        <div class="stat-label">Total Alumnos</div>
-        <div class="stat-valor azul" id="total-alumnos">—</div>
+        <div class="stat-label">Mis Grupos</div>
+        <div class="stat-valor azul" id="total-grupos">—</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Maestros</div>
-        <div class="stat-valor" id="total-maestros">—</div>
+        <div class="stat-label">Listas Hoy</div>
+        <div class="stat-valor verde" id="listas-hoy">—</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Grupos</div>
-        <div class="stat-valor" id="total-grupos">—</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Asistencia Hoy</div>
-        <div class="stat-valor verde" id="asistencia-hoy">—</div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-hoy" style="width:0%;background:var(--color-verde)"></div>
-        </div>
+        <div class="stat-label">Pendientes</div>
+        <div class="stat-valor amarillo" id="listas-pendientes">—</div>
       </div>
     </div>
 
-    <!-- Alerta cumpleaños -->
-    <div id="cumple-alerta" style="display:none" class="alerta alerta-amarillo" style="margin-bottom:20px">
-      🎂 <span id="cumple-texto"></span>
+    <!-- Estado de listas por grupo -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header">
+        <div class="card-titulo">Estado de Lista — Hoy</div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <div class="tabla-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Grupo</th>
+                <th>Alumnos</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-grupos">
+              <tr>
+                <td colspan="4">
+                  <div class="vacio">
+                    <div class="vacio-icono"><i class="fa-solid fa-spinner"></i></div>
+                    <div class="vacio-texto">Cargando grupos...</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- Asistencias recientes -->
     <div class="card">
       <div class="card-header">
-        <div class="card-titulo">Asistencias Recientes</div>
+        <div class="card-titulo">Mis Asistencias Recientes</div>
       </div>
       <div class="card-body" style="padding:0">
         <div class="tabla-wrap">
@@ -88,7 +108,7 @@
 
   <script src="../js/auth.js"></script>
   <script src="../js/navbar.js"></script>
-  <script src="../js/dashboard.js"></script>
+  <script src="../js/dashboard-maestro.js"></script>
 
 </body>
 </html>

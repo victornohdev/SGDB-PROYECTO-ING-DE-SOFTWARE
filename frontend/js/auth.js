@@ -125,6 +125,7 @@ function cerrarSesion() {
     window.location.href = '../index.html';
 }
 // CHORIZO QUE TIENE QUE HACER DIEGO ya hecho
+/*
 // --- Obtener usuario actual ---
 function obtenerUsuario() {
     const data = sessionStorage.getItem('usuario');
@@ -139,7 +140,7 @@ function verificarSesion() {
     }
     return usuario;
 }
-
+*/
 // --- Permitir login con Enter ---
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') iniciarSesion();
@@ -148,10 +149,10 @@ document.addEventListener('keydown', (e) => {
 
 
 // TEMPORAL — quitar cuando el backend esté listo
-/*function obtenerUsuario() {
-  return { nombre: 'Admin Prueba', rol: 'admin' };
+function obtenerUsuario() {
+  return { nombre: 'Juan Pérez', rol: 'admin' };
 }
 
 function verificarSesion() {
   return { nombre: 'Admin Prueba', rol: 'admin' };
-}*/
+}

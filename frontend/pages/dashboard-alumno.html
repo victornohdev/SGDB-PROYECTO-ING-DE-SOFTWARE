@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdúTrack — Dashboard Alumno</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main">
+
+    <!-- Encabezado -->
+    <div class="page-header">
+      <div>
+        <div class="page-titulo">Mi Dashboard</div>
+        <div class="page-subtitulo" id="saludo">Bienvenido</div>
+      </div>
+      <a href="mi-asistencia.html" class="btn btn-primario btn-sm"><i class="fa-solid fa-calendar-days"></i> Ver mi asistencia</a>
+    </div>
+
+    <!-- Tarjetas de estadísticas -->
+    <div class="stats-grid-3">
+      <div class="stat-card">
+        <div class="stat-label">Asistencias</div>
+        <div class="stat-valor verde" id="total-asistencias">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Faltas</div>
+        <div class="stat-valor rojo" id="total-faltas">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Retardos</div>
+        <div class="stat-valor amarillo" id="total-retardos">—</div>
+      </div>
+    </div>
+
+    <!-- Porcentaje de asistencia -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-body">
+        <div class="d-flex justify-between align-center" style="margin-bottom:8px">
+          <span style="font-weight:600">Porcentaje de asistencia</span>
+          <span style="font-weight:700;font-size:18px" id="pct-texto">—</span>
+        </div>
+        <div class="progress-bar" style="height:10px">
+          <div class="progress-fill" id="progress-asistencia" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info del alumno -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header">
+        <div class="card-titulo">Mi Información</div>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <div class="stat-label">Número de Control</div>
+            <div style="font-family:var(--fuente-mono);font-weight:600" id="info-control">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Grado y Grupo</div>
+            <div style="font-weight:600" id="info-grupo">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Maestro Asignado</div>
+            <div style="font-weight:600" id="info-maestro">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Turno</div>
+            <div style="font-weight:600" id="info-turno">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historial reciente -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-titulo">Mis Últimas Asistencias</div>
+        <a href="mi-asistencia.html" class="btn btn-outline btn-sm">Ver todo</a>
+      </div>
+      <div class="card-body" style="padding:0">
+        <div class="tabla-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Grupo</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-asistencias">
+              <tr>
+                <td colspan="3">
+                  <div class="vacio">
+                    <div class="vacio-icono"><i class="fa-solid fa-spinner"></i></div>
+                    <div class="vacio-texto">Cargando historial...</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/dashboard-alumno.js"></script>
+
+</body>
+</html>
