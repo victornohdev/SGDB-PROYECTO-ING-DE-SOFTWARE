@@ -62,16 +62,21 @@ function renderTabla(lista) {
       </td>
       <td class="mono">${m.usuario}</td>
       <td>
-        ${m.grupos.map(g =>
-          `<span class="badge badge-azul" style="margin:2px">${g}</span>`
-        ).join('')}
+       ${m.grupos.map(g =>
+  `<span class="badge badge-azul" style="margin:2px">${g.nombre}</span>`
+).join('')}
       </td>
-      <td>
-        <div class="acciones">
-          <button class="btn btn-outline btn-sm" onclick="editarMaestro(${m.id})">✏️</button>
-          <button class="btn btn-danger btn-sm"  onclick="eliminarMaestro(${m.id})">🗑️</button>
-        </div>
-      </td>
+<td>
+  <div class="acciones">
+    <button class="btn btn-outline btn-sm" onclick="editarMaestro(${m.id})">
+      <i class="fa-solid fa-pen"></i>
+    </button>
+
+    <button class="btn btn-danger btn-sm" onclick="eliminarMaestro(${m.id})">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+  </div>
+</td>
     </tr>
   `).join('');
 }
@@ -94,7 +99,7 @@ async function cargarGruposSelect() {
     const sel    = document.getElementById('mae-grupos');
 
     sel.innerHTML = grupos.map(g =>
-      `<option value="${g.id_grupo}">${g.grado}° ${g.nombre}</option>`
+      `<option value="${g.id}">${g.grado}° ${g.nombre}</option>`
     ).join('');
 
   } catch (err) {
@@ -128,8 +133,11 @@ function editarMaestro(id) {
 
   // Marcar grupos asignados
   const sel = document.getElementById('mae-grupos');
+  console.log(maestro);
   Array.from(sel.options).forEach(opt => {
-    opt.selected = maestro.grupos.includes(opt.value);
+    opt.selected = maestro.grupos.some(
+  g => g.id === Number(opt.value)
+);
   });
 
   ocultarErrorModal();
@@ -163,7 +171,7 @@ async function guardarMaestro() {
   const contrasena = document.getElementById('mae-contrasena').value.trim();
   const grupos     = Array.from(document.getElementById('mae-grupos').selectedOptions)
                          .map(o => o.value);
-
+console.log('Grupos seleccionados:', grupos);
   // Validar campos
   if (!nombre || !usuario) {
     mostrarErrorModal('Por favor completa nombre y usuario.');

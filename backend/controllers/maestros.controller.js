@@ -3,6 +3,7 @@ const db = require('../config/db');
 // GET /api/maestros
 const getMaestros = async (req, res) => {
     try {
+
         const [maestros] = await db.query(`
             SELECT id_maestro AS id, usuario AS nombre, nombre AS usuario, estado
             FROM Maestro
@@ -10,21 +11,33 @@ const getMaestros = async (req, res) => {
         `);
 
         const data = await Promise.all(maestros.map(async (m) => {
+
             const [grupos] = await db.query(`
-                SELECT nombre FROM Grupos WHERE maestro_id = ?
+                SELECT id_grupo, nombre
+                FROM Grupos
+                WHERE maestro_id = ?
             `, [m.id]);
 
             return {
                 ...m,
-                grupos: grupos.map(g => g.nombre)
+                grupos: grupos.map(g => ({
+                    id: g.id_grupo,
+                    nombre: g.nombre
+                }))
             };
+
         }));
 
         res.json(data);
 
     } catch (error) {
+
         console.log(error);
-        res.status(500).json({ mensaje: 'Error al obtener maestros' });
+
+        res.status(500).json({
+            mensaje: 'Error al obtener maestros'
+        });
+
     }
 };
 
@@ -69,6 +82,7 @@ const getGruposMaestro = async (req, res) => {
 
 // POST /api/maestros
 const crearMaestro = async (req, res) => {
+    console.log('BODY:', req.body);
     const { nombre, usuario, contrasena, grupos } = req.body;
 
     if (!nombre || !usuario || !contrasena) {
@@ -80,7 +94,9 @@ const crearMaestro = async (req, res) => {
             `INSERT INTO Maestro (nombre, usuario, contrasena, estado) VALUES (?, ?, ?, 'activo')`,
             [usuario, nombre, contrasena]  // usuario->nombre, nombre->usuario
         );
-
+console.log('Result:', result);
+console.log('insertId:', result.insertId);
+console.log('Grupos a asignar:', grupos);
         const maestroId = result.insertId;
 
         if (grupos && grupos.length > 0) {
