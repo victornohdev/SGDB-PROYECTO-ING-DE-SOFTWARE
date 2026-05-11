@@ -63,8 +63,8 @@ function renderTabla(lista) {
       <td>${g.maestro ?? '<span class="text-muted">Sin asignar</span>'}</td>
       <td>
         <div class="acciones">
-          <button class="btn btn-outline btn-sm" onclick="editarGrupo(${g.id})">✏️</button>
-          <button class="btn btn-danger btn-sm"  onclick="eliminarGrupo(${g.id})">🗑️</button>
+          <button class="btn btn-outline btn-sm" onclick="editarGrupo(${g.id})"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn btn-danger btn-sm"  onclick="eliminarGrupo(${g.id})"><i class="fa-solid fa-trash"></i></button>
         </div>
       </td>
     </tr>

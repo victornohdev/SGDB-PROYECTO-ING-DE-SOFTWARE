@@ -78,8 +78,8 @@ function renderTabla(lista) {
       <td>${formatearFecha(a.cumpleanos)}</td>
       <td>
         <div class="acciones">
-          <button class="btn btn-outline btn-sm" onclick="editarAlumno(${a.id})">✏️</button>
-          <button class="btn btn-danger btn-sm"  onclick="eliminarAlumno(${a.id})">🗑️</button>
+          <button class="btn btn-outline btn-sm" onclick="editarAlumno(${a.id})"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn btn-danger btn-sm"  onclick="eliminarAlumno(${a.id})"><i class="fa-solid fa-trash"></i></button>
         </div>
       </td>
     </tr>

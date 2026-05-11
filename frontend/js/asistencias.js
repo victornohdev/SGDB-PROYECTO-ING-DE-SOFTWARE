@@ -105,7 +105,7 @@ console.log('Alumnos:', alumnos);
     contenido.innerHTML = `
       ${yaPaso ? `
         <div class="alerta alerta-verde" style="margin-bottom:16px">
-          ✅ <span>Lista ya registrada para hoy — ${hoy}</span>
+          <i class="fa-solid fa-check"></i> <span>Lista ya registrada para hoy — ${hoy}</span>
         </div>` : ''}
 
       <div class="card">

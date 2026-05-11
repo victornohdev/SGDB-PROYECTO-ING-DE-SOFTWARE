@@ -321,6 +321,49 @@ const actualizarAsistencia = async (req, res) => {
     }
 };
 
+// GET /api/alumnos/:id/asistencias
+const getAsistenciasAlumno = async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+
+        const [rows] = await db.query(`
+            SELECT
+                a.fecha,
+                a.asistencia_registrada AS estado,
+                g.nombre AS grupo
+            FROM Asistencias a
+            LEFT JOIN Grupos g
+                ON g.id_grupo = a.grupo_id
+            WHERE a.alumno_id = ?
+            ORDER BY a.fecha DESC
+        `, [id]);
+
+        const historial = rows.map(r => ({
+            fecha: r.fecha instanceof Date
+                ? r.fecha.toISOString().slice(0, 10)
+                : r.fecha,
+            estado: r.estado,
+            grupo: r.grupo || '—'
+        }));
+
+        res.json({
+            historial
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            mensaje: 'Error al obtener asistencias del alumno'
+        });
+
+    }
+
+};
+
 module.exports = {
     getRecientes,
     registrar,
@@ -330,5 +373,6 @@ module.exports = {
     verificarLista,
     subirLista,
     getAsistenciasEditar,
+    getAsistenciasAlumno,
     actualizarAsistencia
 };
