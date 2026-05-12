@@ -69,8 +69,11 @@ async function cargarHistorialReciente() {
 
   try {
     const usuario = obtenerUsuario();
+      console.log('Usuario:', usuario);
     const res  = await fetch(`${API}/alumnos/${usuario.id}/asistencias?limit=5`);
+    console.log('Status:', res.status);
     const data = await res.json();
+    console.log('Historial:', data);
 
     if (!data || data.length === 0) {
       tbody.innerHTML = `

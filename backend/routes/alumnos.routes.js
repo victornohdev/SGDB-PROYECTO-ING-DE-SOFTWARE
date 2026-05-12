@@ -14,7 +14,7 @@ const {
     getAsistenciasAlumno
 } = require('../controllers/asistencias.controller');
 
-router.get('/:id/asistencias', getAsistenciasAlumno);
+
 
 router.get('/',                 getAlumnos);
 router.get('/:id',              getInfoAlumno);

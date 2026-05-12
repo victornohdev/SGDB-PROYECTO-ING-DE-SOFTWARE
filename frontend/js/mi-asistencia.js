@@ -31,7 +31,7 @@ async function cargarMiAsistencia() {
     const res  = await fetch(`${API}/alumnos/${usuario.id}/asistencias`);
     const data = await res.json();
 
-    historialCompleto = data.historial || [];
+    historialCompleto = Array.isArray(data) ? data : (data.historial || []);
 
     // Estadísticas
     const s   = historialCompleto.filter(h => h.estado === 'asistio').length;
