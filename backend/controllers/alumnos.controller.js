@@ -13,8 +13,8 @@ const getAlumnos = async (req, res) => {
                 al.grupo_id,
                 g.nombre            AS grupo,
                 g.grado             AS grado
-            FROM Alumnos al
-            LEFT JOIN Grupos g ON g.id_grupo = al.grupo_id
+            FROM alumnos al
+            LEFT JOIN grupos g ON g.id_grupo = al.grupo_id
             ORDER BY al.nombre ASC
         `);
 
@@ -44,9 +44,9 @@ const getInfoAlumno = async (req, res) => {
                 g.nombre        AS grupo,
                 m.nombre        AS maestro,
                 g.turno
-            FROM Alumnos al
-            LEFT JOIN Grupos  g ON g.id_grupo   = al.grupo_id
-            LEFT JOIN Maestro m ON m.id_maestro = g.maestro_id
+            FROM alumnos al
+            LEFT JOIN grupos  g ON g.id_grupo   = al.grupo_id
+            LEFT JOIN maestro m ON m.id_maestro = g.maestro_id
             WHERE al.id_alumno = ?
         `, [id]);
 
@@ -67,16 +67,16 @@ const getEstadisticasAlumno = async (req, res) => {
     const { id } = req.params;
     try {
         const [[{ asistencias }]] = await db.query(
-            `SELECT COUNT(*) AS asistencias FROM Asistencias WHERE alumno_id = ? AND asistencia_registrada = 'asistio'`, [id]
+            `SELECT COUNT(*) AS asistencias FROM asistencias WHERE alumno_id = ? AND asistencia_registrada = 'asistio'`, [id]
         );
         const [[{ faltas }]] = await db.query(
-            `SELECT COUNT(*) AS faltas FROM Asistencias WHERE alumno_id = ? AND asistencia_registrada = 'falto'`, [id]
+            `SELECT COUNT(*) AS faltas FROM asistencias WHERE alumno_id = ? AND asistencia_registrada = 'falto'`, [id]
         );
         const [[{ retardos }]] = await db.query(
-            `SELECT COUNT(*) AS retardos FROM Asistencias WHERE alumno_id = ? AND asistencia_registrada = 'retardo'`, [id]
+            `SELECT COUNT(*) AS retardos FROM asistencias WHERE alumno_id = ? AND asistencia_registrada = 'retardo'`, [id]
         );
         const [[{ total }]] = await db.query(
-            `SELECT COUNT(*) AS total FROM Asistencias WHERE alumno_id = ?`, [id]
+            `SELECT COUNT(*) AS total FROM asistencias WHERE alumno_id = ?`, [id]
         );
 
         const porcentaje = total > 0 ? Math.round((asistencias / total) * 100) : 0;
@@ -100,7 +100,7 @@ const getHistorialAlumno = async (req, res) => {
                 as2.fecha,
                 as2.asistencia_registrada AS estado,
                 g.nombre                  AS grupo
-            FROM Asistencias as2
+            FROM asistencias as2
             LEFT JOIN Grupos g ON g.id_grupo = as2.grupo_id
             WHERE as2.alumno_id = ?
             ORDER BY as2.fecha DESC
@@ -132,7 +132,7 @@ const crearAlumno = async (req, res) => {
 
     try {
         await db.query(
-            `INSERT INTO Alumnos (nombre, contrasena, no_control, grupo_id, fecha_nacimiento, estado)
+            `INSERT INTO alumnos (nombre, contrasena, no_control, grupo_id, fecha_nacimiento, estado)
              VALUES (?, ?, ?, ?, ?, 'activo')`,
             [nombre, control, control, grupo, cumpleanos || null]
         );
@@ -152,7 +152,7 @@ const editarAlumno = async (req, res) => {
 
     try {
         await db.query(
-            `UPDATE Alumnos SET nombre = ?, no_control = ?, fecha_nacimiento = ?, grupo_id = ?
+            `UPDATE alumnos SET nombre = ?, no_control = ?, fecha_nacimiento = ?, grupo_id = ?
              WHERE id_alumno = ?`,
             [nombre, control, cumpleanos || null, grupo, id]
         );
@@ -170,7 +170,7 @@ const eliminarAlumno = async (req, res) => {
     const { id } = req.params;
 
     try {
-        await db.query(`DELETE FROM Alumnos WHERE id_alumno = ?`, [id]);
+        await db.query(`DELETE FROM alumnos WHERE id_alumno = ?`, [id]);
         res.json({ mensaje: 'Alumno eliminado correctamente' });
 
     } catch (error) {
