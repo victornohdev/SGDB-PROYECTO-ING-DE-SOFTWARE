@@ -60,7 +60,7 @@ async function cargarAsistencias() {
         <div class="card">
           <div class="card-body">
             <div class="vacio">
-              <div class="vacio-icono">✅</div>
+              <div class="vacio-icono"><i class="fa-solid fa-check"></i></div>
               <div class="vacio-texto">No hay asistencias pendientes de editar para hoy</div>
             </div>
           </div>
