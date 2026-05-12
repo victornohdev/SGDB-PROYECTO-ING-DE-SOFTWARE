@@ -12,15 +12,15 @@ const login = async (req, res) => {
         switch (rol) {
 
             case 'admin':
-                tabla = 'Administradores';
+                tabla = 'administradores';
                 break;
 
             case 'maestro':
-                tabla = 'Maestro';
+                tabla = 'maestro';
                 break;
 
             case 'alumno':
-                tabla = 'Alumnos';
+                tabla = 'alumnos';
                 break;
 
             default:
