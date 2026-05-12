@@ -79,7 +79,7 @@ async function iniciarSesion() {
 
     try {
         // Llamada al backend
-        const res = await fetch('hhttps://sgdb-proyecto-ing-de-software-production.up.railway.app/api/auth/login', {
+        const res = await fetch('https://sgdb-proyecto-ing-de-software-production.up.railway.app/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usuario, contrasena, rol: rolSeleccionado })
