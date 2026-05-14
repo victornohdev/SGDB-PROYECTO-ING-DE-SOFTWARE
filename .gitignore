@@ -1,0 +1,23 @@
+# Dependencias Node.js
+backend/node_modules/
+
+# Variables de entorno
+backend/.env
+
+# Logs
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Builds/cache
+dist/
+build/
+
+# Temporales
+tmp/
+temp/

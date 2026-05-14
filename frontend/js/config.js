@@ -1,0 +1,1 @@
+const API = 'https://sgdb-proyecto-ing-de-software-production.up.railway.app/api';

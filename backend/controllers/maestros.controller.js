@@ -6,7 +6,7 @@ const getMaestros = async (req, res) => {
 
         const [maestros] = await db.query(`
             SELECT id_maestro AS id, usuario AS nombre, nombre AS usuario, estado
-            FROM Maestro
+            FROM maestro
             ORDER BY usuario ASC
         `);
 
@@ -14,7 +14,7 @@ const getMaestros = async (req, res) => {
 
             const [grupos] = await db.query(`
                 SELECT id_grupo, nombre
-                FROM Grupos
+                FROM grupos
                 WHERE maestro_id = ?
             `, [m.id]);
 
@@ -53,8 +53,8 @@ const getGruposMaestro = async (req, res) => {
                 g.nombre,
                 g.grado,
                 COUNT(al.id_alumno) AS totalAlumnos
-            FROM Grupos g
-            LEFT JOIN Alumnos al ON al.grupo_id = g.id_grupo
+            FROM grupos g
+            LEFT JOIN alumnos al ON al.grupo_id = g.id_grupo
             WHERE g.maestro_id = ?
             GROUP BY g.id_grupo, g.nombre, g.grado
         `, [id]);
@@ -62,7 +62,7 @@ const getGruposMaestro = async (req, res) => {
         const data = await Promise.all(grupos.map(async (g) => {
             const [[{ pasadas }]] = await db.query(`
                 SELECT COUNT(*) AS pasadas
-                FROM Asistencias
+                FROM asistencias
                 WHERE grupo_id = ? AND fecha = ?
             `, [g.id, hoy]);
 
@@ -91,17 +91,17 @@ const crearMaestro = async (req, res) => {
 
     try {
         const [result] = await db.query(
-            `INSERT INTO Maestro (nombre, usuario, contrasena, estado) VALUES (?, ?, ?, 'activo')`,
+            `INSERT INTO maestro (nombre, usuario, contrasena, estado) VALUES (?, ?, ?, 'activo')`,
             [usuario, nombre, contrasena]  // usuario->nombre, nombre->usuario
         );
 console.log('Result:', result);
 console.log('insertId:', result.insertId);
-console.log('Grupos a asignar:', grupos);
+console.log('grupos a asignar:', grupos);
         const maestroId = result.insertId;
 
         if (grupos && grupos.length > 0) {
             await Promise.all(grupos.map(grupo_id =>
-                db.query(`UPDATE Grupos SET maestro_id = ? WHERE id_grupo = ?`, [maestroId, grupo_id])
+                db.query(`UPDATE grupos SET maestro_id = ? WHERE id_grupo = ?`, [maestroId, grupo_id])
             ));
         }
 
@@ -120,21 +120,21 @@ const editarMaestro = async (req, res) => {
     try {
         if (contrasena) {
             await db.query(
-                `UPDATE Maestro SET nombre = ?, usuario = ?, contrasena = ? WHERE id_maestro = ?`,
+                `UPDATE maestro SET nombre = ?, usuario = ?, contrasena = ? WHERE id_maestro = ?`,
                 [usuario, nombre, contrasena, id]
             );
         } else {
             await db.query(
-                `UPDATE Maestro SET nombre = ?, usuario = ? WHERE id_maestro = ?`,
+                `UPDATE maestro SET nombre = ?, usuario = ? WHERE id_maestro = ?`,
                 [usuario, nombre, id]
             );
         }
 
-        await db.query(`UPDATE Grupos SET maestro_id = NULL WHERE maestro_id = ?`, [id]);
+        await db.query(`UPDATE grupos SET maestro_id = NULL WHERE maestro_id = ?`, [id]);
 
         if (grupos && grupos.length > 0) {
             await Promise.all(grupos.map(grupo_id =>
-                db.query(`UPDATE Grupos SET maestro_id = ? WHERE id_grupo = ?`, [id, grupo_id])
+                db.query(`UPDATE grupos SET maestro_id = ? WHERE id_grupo = ?`, [id, grupo_id])
             ));
         }
 
@@ -151,7 +151,7 @@ const eliminarMaestro = async (req, res) => {
     const { id } = req.params;
 
     try {
-        await db.query(`UPDATE Grupos SET maestro_id = NULL WHERE maestro_id = ?`, [id]);
+        await db.query(`UPDATE grupos SET maestro_id = NULL WHERE maestro_id = ?`, [id]);
         await db.query(`DELETE FROM Maestro WHERE id_maestro = ?`, [id]);
         res.json({ mensaje: 'Maestro eliminado correctamente' });
 
@@ -171,8 +171,8 @@ const getAlumnosMaestro = async (req, res) => {
                 al.id_alumno  AS id,
                 al.nombre,
                 al.no_control AS control
-            FROM Alumnos al
-            JOIN Grupos g ON g.id_grupo = al.grupo_id
+            FROM alumnos al
+            JOIN grupos g ON g.id_grupo = al.grupo_id
             WHERE g.maestro_id = ?
             ORDER BY al.nombre ASC
         `, [id]);

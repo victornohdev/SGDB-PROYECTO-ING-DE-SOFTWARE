@@ -101,7 +101,7 @@ const getHistorialAlumno = async (req, res) => {
                 as2.asistencia_registrada AS estado,
                 g.nombre                  AS grupo
             FROM asistencias as2
-            LEFT JOIN Grupos g ON g.id_grupo = as2.grupo_id
+            LEFT JOIN grupos g ON g.id_grupo = as2.grupo_id
             WHERE as2.alumno_id = ?
             ORDER BY as2.fecha DESC
             LIMIT ?

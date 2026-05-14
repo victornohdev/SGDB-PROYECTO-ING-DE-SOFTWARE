@@ -10,9 +10,9 @@ const getRecientes = async (req, res) => {
                 as2.fecha,
                 as2.asistencia_registrada AS estado,
                 g.nombre                  AS grupo
-            FROM Asistencias as2
-            JOIN Alumnos al ON al.id_alumno = as2.alumno_id
-            LEFT JOIN Grupos g ON g.id_grupo = as2.grupo_id
+            FROM asistencias as2
+            JOIN alumnos al ON al.id_alumno = as2.alumno_id
+            LEFT JOIN grupos g ON g.id_grupo = as2.grupo_id
         `;
 
         const params = [];
@@ -50,7 +50,7 @@ const registrar = async (req, res) => {
 
     try {
         await db.query(
-            `INSERT INTO Asistencias (alumno_id, grupo_id, fecha, asistencia_registrada, estado)
+            `INSERT INTO asistencias (alumno_id, grupo_id, fecha, asistencia_registrada, estado)
              VALUES (?, ?, ?, ?, ?)`,
             [alumno_id, grupo_id ?? null, fecha, asistencia_registrada, estado ?? 'activo']
         );
@@ -77,8 +77,8 @@ const getConsultaGeneral = async (req, res) => {
                 COUNT(CASE WHEN as2.asistencia_registrada = 'falto'   THEN 1 END) AS faltas,
                 COUNT(CASE WHEN as2.asistencia_registrada = 'retardo' THEN 1 END) AS retardos,
                 COUNT(as2.id_asistencia) AS total
-            FROM Grupos g
-            LEFT JOIN Asistencias as2 ON as2.grupo_id = g.id_grupo
+            FROM grupos g
+            LEFT JOIN asistencias as2 ON as2.grupo_id = g.id_grupo
                 AND as2.fecha BETWEEN ? AND ?
         `;
 
@@ -114,11 +114,11 @@ const getConsultaGrupo = async (req, res) => {
     try {
         // Info del grupo
         const [[grupo]] = await db.query(
-            `SELECT CONCAT(grado, '° ', nombre) AS nombre FROM Grupos WHERE id_grupo = ?`,
+            `SELECT CONCAT(grado, '° ', nombre) AS nombre FROM grupos WHERE id_grupo = ?`,
             [grupoId]
         );
 
-        // Alumnos del grupo con sus conteos
+        // alumnos del grupo con sus conteos
         const [alumnos] = await db.query(`
             SELECT
                 al.id_alumno AS id,
@@ -127,8 +127,8 @@ const getConsultaGrupo = async (req, res) => {
                 COUNT(CASE WHEN as2.asistencia_registrada = 'falto'   THEN 1 END) AS faltas,
                 COUNT(CASE WHEN as2.asistencia_registrada = 'retardo' THEN 1 END) AS retardos,
                 COUNT(as2.id_asistencia) AS total
-            FROM Alumnos al
-            LEFT JOIN Asistencias as2 ON as2.alumno_id = al.id_alumno
+            FROM alumnos al
+            LEFT JOIN asistencias as2 ON as2.alumno_id = al.id_alumno
                 AND as2.fecha BETWEEN ? AND ?
             WHERE al.grupo_id = ?
             GROUP BY al.id_alumno, al.nombre
@@ -155,21 +155,21 @@ const getConsultaAlumno = async (req, res) => {
     try {
         // Info del alumno
         const [[alumno]] = await db.query(
-            `SELECT nombre FROM Alumnos WHERE id_alumno = ?`, [alumnoId]
+            `SELECT nombre FROM alumnos WHERE id_alumno = ?`, [alumnoId]
         );
 
         // Conteos
         const [[{ asistencias }]] = await db.query(
-            `SELECT COUNT(*) AS asistencias FROM Asistencias WHERE alumno_id = ? AND asistencia_registrada = 'asistio'`, [alumnoId]
+            `SELECT COUNT(*) AS asistencias FROM asistencias WHERE alumno_id = ? AND asistencia_registrada = 'asistio'`, [alumnoId]
         );
         const [[{ faltas }]] = await db.query(
-            `SELECT COUNT(*) AS faltas FROM Asistencias WHERE alumno_id = ? AND asistencia_registrada = 'falto'`, [alumnoId]
+            `SELECT COUNT(*) AS faltas FROM asistencias WHERE alumno_id = ? AND asistencia_registrada = 'falto'`, [alumnoId]
         );
         const [[{ retardos }]] = await db.query(
-            `SELECT COUNT(*) AS retardos FROM Asistencias WHERE alumno_id = ? AND asistencia_registrada = 'retardo'`, [alumnoId]
+            `SELECT COUNT(*) AS retardos FROM asistencias WHERE alumno_id = ? AND asistencia_registrada = 'retardo'`, [alumnoId]
         );
         const [[{ total }]] = await db.query(
-            `SELECT COUNT(*) AS total FROM Asistencias WHERE alumno_id = ?`, [alumnoId]
+            `SELECT COUNT(*) AS total FROM asistencias WHERE alumno_id = ?`, [alumnoId]
         );
 
         // Historial
@@ -178,8 +178,8 @@ const getConsultaAlumno = async (req, res) => {
                 as2.fecha,
                 as2.asistencia_registrada AS estado,
                 g.nombre AS grupo
-            FROM Asistencias as2
-            LEFT JOIN Grupos g ON g.id_grupo = as2.grupo_id
+            FROM asistencias as2
+            LEFT JOIN grupos g ON g.id_grupo = as2.grupo_id
             WHERE as2.alumno_id = ?
         `;
 
@@ -220,7 +220,7 @@ const verificarLista = async (req, res) => {
 
     try {
         const [[{ total }]] = await db.query(
-            `SELECT COUNT(*) AS total FROM Asistencias WHERE grupo_id = ? AND fecha = ?`,
+            `SELECT COUNT(*) AS total FROM asistencias WHERE grupo_id = ? AND fecha = ?`,
             [grupoId, fecha]
         );
 
@@ -243,7 +243,7 @@ const subirLista = async (req, res) => {
     try {
         await Promise.all(asistencias.map(a =>
             db.query(
-                `INSERT INTO Asistencias (alumno_id, grupo_id, fecha, asistencia_registrada, estado)
+                `INSERT INTO asistencias (alumno_id, grupo_id, fecha, asistencia_registrada, estado)
                  VALUES (?, ?, ?, ?, 'activo')
                  ON DUPLICATE KEY UPDATE asistencia_registrada = VALUES(asistencia_registrada)`,
                 [a.alumnoId, a.grupoId, a.fecha, a.estado]
@@ -271,8 +271,8 @@ const getAsistenciasEditar = async (req, res) => {
                 al.nombre         AS alumno,
                 al.no_control     AS control,
                 as2.asistencia_registrada AS estado
-            FROM Asistencias as2
-            JOIN Alumnos al
+            FROM asistencias as2
+            JOIN alumnos al
                 ON al.id_alumno = as2.alumno_id
             WHERE as2.grupo_id = ?
             AND as2.fecha = ?
@@ -301,7 +301,7 @@ const actualizarAsistencia = async (req, res) => {
     try {
 
         await db.query(`
-            UPDATE Asistencias
+            UPDATE asistencias
             SET asistencia_registrada = ?
             WHERE id_asistencia = ?
         `, [estado, id]);
@@ -333,8 +333,8 @@ const getAsistenciasAlumno = async (req, res) => {
                 a.fecha,
                 a.asistencia_registrada AS estado,
                 g.nombre AS grupo
-            FROM Asistencias a
-            LEFT JOIN Grupos g
+            FROM asistencias a
+            LEFT JOIN grupos g
                 ON g.id_grupo = a.grupo_id
             WHERE a.alumno_id = ?
             ORDER BY a.fecha DESC

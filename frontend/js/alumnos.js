@@ -2,8 +2,6 @@
 //  ALUMNOS.JS — CRUD completo de alumnos
 //  SGAE - Sistema de Gestión de Asistencias
 // =============================================
-
-const API = 'http://localhost:3000/api';
 let alumnos = [];
 let editandoId = null;
 

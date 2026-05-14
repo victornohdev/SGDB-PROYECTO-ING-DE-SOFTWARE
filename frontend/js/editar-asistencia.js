@@ -3,7 +3,7 @@
 //  SGAE - Sistema de Gestión de Asistencias
 // =============================================
 
-const API = 'http://localhost:3000/api';
+
 let asistencias = [];
 
 // --- Inicializar ---

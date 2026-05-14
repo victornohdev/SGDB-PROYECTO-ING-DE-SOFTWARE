@@ -3,7 +3,6 @@
 //  SGAE - Sistema de Gestión de Asistencias
 // =============================================
 
-const API = 'http://localhost:3000/api';
 
 // Estado temporal de asistencias (antes de subir)
 let sesionTemp = {};

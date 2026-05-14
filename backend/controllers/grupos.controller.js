@@ -11,9 +11,9 @@ const getGrupos = async (req, res) => {
                 g.maestro_id,
                 m.nombre        AS maestro,
                 COUNT(al.id_alumno) AS totalAlumnos
-            FROM Grupos g
-            LEFT JOIN Maestro m  ON m.id_maestro = g.maestro_id
-            LEFT JOIN Alumnos al ON al.grupo_id  = g.id_grupo
+            FROM grupos g
+            LEFT JOIN maestro m  ON m.id_maestro = g.maestro_id
+            LEFT JOIN alumnos al ON al.grupo_id  = g.id_grupo
             GROUP BY g.id_grupo, g.nombre, g.grado, g.turno, g.maestro_id, m.nombre
             ORDER BY g.grado ASC, g.nombre ASC
         `);
@@ -34,7 +34,7 @@ const crearGrupo = async (req, res) => {
 
     try {
         await db.query(
-            `INSERT INTO Grupos (grado, nombre, turno) VALUES (?, ?, ?)`,
+            `INSERT INTO grupos (grado, nombre, turno) VALUES (?, ?, ?)`,
             [grado, nombre, turno]
         );
         res.json({ mensaje: 'Grupo creado correctamente' });
@@ -51,7 +51,7 @@ const editarGrupo = async (req, res) => {
 
     try {
         await db.query(
-            `UPDATE Grupos SET grado = ?, nombre = ?, turno = ? WHERE id_grupo = ?`,
+            `UPDATE grupos SET grado = ?, nombre = ?, turno = ? WHERE id_grupo = ?`,
             [grado, nombre, turno, id]
         );
         res.json({ mensaje: 'Grupo actualizado correctamente' });
@@ -67,14 +67,14 @@ const eliminarGrupo = async (req, res) => {
 
     try {
         const [[{ total }]] = await db.query(
-            `SELECT COUNT(*) AS total FROM Alumnos WHERE grupo_id = ?`, [id]
+            `SELECT COUNT(*) AS total FROM alumnos WHERE grupo_id = ?`, [id]
         );
 
         if (total > 0) {
             return res.status(400).json({ mensaje: 'No se puede eliminar un grupo con alumnos asignados.' });
         }
 
-        await db.query(`DELETE FROM Grupos WHERE id_grupo = ?`, [id]);
+        await db.query(`DELETE FROM grupos WHERE id_grupo = ?`, [id]);
         res.json({ mensaje: 'Grupo eliminado correctamente' });
 
     } catch (error) {
@@ -93,7 +93,7 @@ const getAlumnosGrupo = async (req, res) => {
                 id_alumno AS id,
                 nombre,
                 no_control AS control
-            FROM Alumnos
+            FROM alumnos
             WHERE grupo_id = ?
             ORDER BY nombre ASC
         `, [id]);
