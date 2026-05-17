@@ -128,10 +128,10 @@ CREATE TABLE `grupos` (
   `nombre` varchar(50) DEFAULT NULL,
   `grado` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_grupo`),
-  KEY `fk_grupos_maestro` (`maestro_id`),
   KEY `fk_grupos_alumno` (`alumno_id`),
+  KEY `fk_grupos_maestro` (`maestro_id`),
   CONSTRAINT `fk_grupos_alumno` FOREIGN KEY (`alumno_id`) REFERENCES `alumnos` (`id_alumno`),
-  CONSTRAINT `fk_grupos_maestro` FOREIGN KEY (`maestro_id`) REFERENCES `maestro` (`id_maestro`)
+  CONSTRAINT `fk_grupos_maestro` FOREIGN KEY (`maestro_id`) REFERENCES `maestro` (`id_maestro`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -210,4 +210,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-17 15:05:13
+-- Dump completed on 2026-05-17 15:11:46
