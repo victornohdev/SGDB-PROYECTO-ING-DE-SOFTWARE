@@ -152,7 +152,7 @@ const eliminarMaestro = async (req, res) => {
 
     try {
         await db.query(`UPDATE grupos SET maestro_id = NULL WHERE maestro_id = ?`, [id]);
-        await db.query(`DELETE FROM Maestro WHERE id_maestro = ?`, [id]);
+        await db.query(`DELETE FROM maestro WHERE id_maestro = ?`, [id]);
         res.json({ mensaje: 'Maestro eliminado correctamente' });
 
     } catch (error) {
