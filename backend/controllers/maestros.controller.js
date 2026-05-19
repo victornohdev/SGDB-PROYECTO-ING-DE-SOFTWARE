@@ -13,18 +13,19 @@ const getMaestros = async (req, res) => {
         const data = await Promise.all(maestros.map(async (m) => {
 
             const [grupos] = await db.query(`
-                SELECT id_grupo, nombre
-                FROM grupos
-                WHERE maestro_id = ?
+    SELECT id_grupo, nombre, grado
+    FROM grupos
+    WHERE maestro_id = ?
             `, [m.id]);
 
-            return {
-                ...m,
-                grupos: grupos.map(g => ({
-                    id: g.id_grupo,
-                    nombre: g.nombre
-                }))
-            };
+return {
+    ...m,
+    grupos: grupos.map(g => ({
+        id: g.id_grupo,
+        nombre: g.nombre,
+        grado: g.grado ?? '0'
+    }))
+};
 
         }));
 
