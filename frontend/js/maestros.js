@@ -62,10 +62,8 @@ function renderTabla(lista) {
       </td>
       <td class="mono">${m.usuario}</td>
       <td>
-${m.grupos.map(g =>
-  `<span class="badge badge-azul" style="margin:2px">
-     ${g.grado}° ${g.nombre}
-   </span>`
+       ${m.grupos.map(g =>
+  `<span class="badge badge-azul" style="margin:2px">${g.nombre}</span>`
 ).join('')}
       </td>
 <td>
